@@ -1,6 +1,5 @@
-# By Kami Bigdely
-# PEP8 - whitespaces and variable names.
-
+"""By Kami Bigdely
+PEP8 - whitespaces and variable names."""
 
 class Pizza:
 
@@ -8,7 +7,7 @@ class Pizza:
                   meat_type, pizza_toppings, size):
         self.bread_type= my_bread_type
         self.cheese_type = CHEESE_TYPE
-        self.meatType= meat_type
+        self.meat_type= meat_type
         self.toppings = pizza_toppings
         self.size = size 
 
@@ -32,7 +31,7 @@ class Pizza:
     def print_info(self):
         print('bread type is: ', self.bread_type)
         print('cheese type is: ', self.cheese_type)
-        print('meat type is: ', self.meatType)
+        print('meat type is: ', self.meat_type)
         print('Toppings are: ', end='')
         print(', '.join(map(str, self.toppings)))
 

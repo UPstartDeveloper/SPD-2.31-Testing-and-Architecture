@@ -1,6 +1,7 @@
-# by Kami Bigdely
-# PEP8 - whitespaces and variable names.
-# This is a guess game. Guess what number the computer has chosen!
+"""by Kami Bigdely
+PEP8 - whitespaces and variable names.
+This is a guess game. Guess what number the computer has chosen!"""
+
 import random
 
 

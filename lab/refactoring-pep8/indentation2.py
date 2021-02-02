@@ -1,5 +1,6 @@
-# by Kami Bigdely
-# Indentation
+"""by Kami Bigdely
+Indentation."""
+
 def write_to_db():
     print('person info are written into db.')
     
