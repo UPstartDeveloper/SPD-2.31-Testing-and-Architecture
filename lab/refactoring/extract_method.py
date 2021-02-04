@@ -53,7 +53,6 @@ def print_stat(n_students):
     print(f"The grades's mean is: {mean}")
     print(f"The population standard deviation of grades is: {round(sd, 3)}")
     print("****** END ******")
-    return
 
 
 if __name__ == "__name__":

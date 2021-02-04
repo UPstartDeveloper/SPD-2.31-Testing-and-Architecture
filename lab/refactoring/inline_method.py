@@ -1,6 +1,5 @@
 # by Kami Bigdely
 # Inline method.
-# TODO: Refactor this program to improve its readability.
 
 
 class Person:
