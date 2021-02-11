@@ -15,7 +15,7 @@ def is_high():
     )
 
 
-def is_borderline(ldl, total_cholostrol, triglyceride):
+def is_borderline():
     return (
         200 < total_cholostrol < 240 
         or 130 < ldl < 160 
