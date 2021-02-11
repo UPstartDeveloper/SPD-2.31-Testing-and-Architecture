@@ -20,6 +20,6 @@ iris_eye_ratio = (
     (math.pi*iris_width/2*iris_height/2) / eye_size
 )
 if eye_size > 0.45 and iris_eye_ratio >= 0.69 and height_width_ratio >= 0.59:
-    print(\
-        "I’m sorry I wasn’t part of your past, can I make it up by being in your future?")
+    print("I’m sorry I wasn’t part of your past, \
+          can I make it up by being in your future?")
     
