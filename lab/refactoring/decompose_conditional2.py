@@ -3,11 +3,11 @@
 # Reference: https://www.healthline.com/health/high-cholesterol/levels-by-age
 
 
-def is_good(ldl, total_cholostrol, triglyceride):
+def is_good():
     return total_cholostrol < 200 and ldl < 100 and triglyceride < 150
 
 
-def is_high(ldl, total_cholostrol, triglyceride):
+def is_high():
     return (
         200 < total_cholostrol > 240 
         or ldl > 160 
