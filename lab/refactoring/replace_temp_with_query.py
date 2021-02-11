@@ -64,20 +64,7 @@ class School:
         for e in top_employers:
             e.send(top_10_percent)
 
-    def process_graduation(self):
-        # Find the students in the school who have successfully graduated.
-        passed_students = self.get_passed_students(2.5)
-        # print student's name who graduated.
-        self.print_graduates(passed_students)
-        # Send congrat emails to them.
-        for s in passed_students:
-            s.send_congrat_email()
-        # Find the top 10% of them and send their contact to the top employers
-        self.share_with_employers(passed_students)
-
-
-if __name__ == "__main__":
-    students = [Student(2.1, 'donald'), Student(2.3, 'william'), Student(2.7, 'toro'), 
-                Student(3.9, 'lili'), Student(3.2,'kami'), Student(3,'sarah')]
-    school  = School(students)
-    school.process_graduation()
+students = [Student(2.1, 'Pinocchio'), Student(2.3, 'goku'), Student(2.7, 'toro'), 
+            Student(3.9, 'naruto'), Student(3.2,'kami'), Student(3,'guts')]
+school  = School(students)
+school.process_graduation()
