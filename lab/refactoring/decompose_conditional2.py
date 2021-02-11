@@ -27,15 +27,15 @@ total_cholostrol = 70
 ldl = 30
 triglyceride = 120
 
-if is_good(ldl, total_cholostrol, triglyceride):
+if is_good():
     # good level
     print('*** Good level of cholestrol ***')
-elif is_high(ldl, total_cholostrol, triglyceride):
+elif is_high():
     # High cholestrol level
     print('*** High cholestrol level ***')
     print('start taking pills such as statins')
     print('start TLC diet')
-elif is_borderline(ldl, total_cholostrol, triglyceride):
+elif is_borderline():
     #TLC_diet
     print('*** Borderline to moderately elevated ***')
     print("Start TLC diet")
