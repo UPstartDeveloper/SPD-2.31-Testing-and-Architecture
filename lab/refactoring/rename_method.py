@@ -8,9 +8,11 @@ def calculate_area(graph):
     # bla bla bla.
     pass
 
+
 #####################
 
-def get_max_value(li): 
+
+def get_max_value(li):
     """Return the largest value from a list."""
     m = li[0]
     for value in li:
@@ -23,9 +25,9 @@ li = [5, -1, 43, 32, 87, -100]
 print(get_max_value(li))
 
 ############################
-def tokenize(sentence):  
-    words = sentence[0:].split(' ')
+def tokenize(sentence):
+    words = sentence[0:].split(" ")
     return words
 
 
-print(tokenize('If you were a vegetable, you’d be a ‘cute-cumber.'))
+print(tokenize("If you were a vegetable, you’d be a ‘cute-cumber."))

@@ -8,19 +8,11 @@ def is_good():
 
 
 def is_high():
-    return (
-        200 < total_cholostrol > 240 
-        or ldl > 160 
-        or triglyceride >= 200
-    )
+    return 200 < total_cholostrol > 240 or ldl > 160 or triglyceride >= 200
 
 
 def is_borderline():
-    return (
-        200 < total_cholostrol < 240 
-        or 130 < ldl < 160 
-        or 150 <= triglyceride < 200
-    )
+    return 200 < total_cholostrol < 240 or 130 < ldl < 160 or 150 <= triglyceride < 200
 
 
 total_cholostrol = 70
@@ -29,19 +21,23 @@ triglyceride = 120
 
 if is_good():
     # good level
-    print('*** Good level of cholestrol ***')
+    print("*** Good level of cholestrol ***")
 elif is_high():
     # High cholestrol level
-    print('*** High cholestrol level ***')
-    print('start taking pills such as statins')
-    print('start TLC diet')
+    print("*** High cholestrol level ***")
+    print("start taking pills such as statins")
+    print("start TLC diet")
 elif is_borderline():
-    #TLC_diet
-    print('*** Borderline to moderately elevated ***')
+    # TLC_diet
+    print("*** Borderline to moderately elevated ***")
     print("Start TLC diet")
-    print("Under this meal plan, only 7 percent of your daily calories \nshould come from saturated fat.")
-    print('Some foods help your digestive tract absorb less cholesterol. For example,\nyour doctor may encourage you to eat more:')
-    print('oats, barley, and other whole grains.')
-    print('fruits such as apples, pears, bananas, and oranges.')
+    print(
+        "Under this meal plan, only 7 percent of your daily calories \nshould come from saturated fat."
+    )
+    print(
+        "Some foods help your digestive tract absorb less cholesterol. For example,\nyour doctor may encourage you to eat more:"
+    )
+    print("oats, barley, and other whole grains.")
+    print("fruits such as apples, pears, bananas, and oranges.")
 else:
-    print('Error: unhandled case.')
+    print("Error: unhandled case.")

@@ -5,7 +5,7 @@
 
 def get_discount_factor(base_price):
     discount_factor = 0.98
-    if base_price > 1000: 
+    if base_price > 1000:
         discount_factor = 0.95
     return discount_factor
 

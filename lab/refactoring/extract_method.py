@@ -1,6 +1,6 @@
 """Written by Kamran Bigdely
 Example for Compose Methods: Extract Method."""
-import math 
+import math
 
 
 def get_grades(n_students):
@@ -14,7 +14,7 @@ def get_grades(n_students):
     grade_list = []
     # Get the inputs from the user
     for _ in range(n_students):
-        grade_list.append(int(input('Enter a number: ')))
+        grade_list.append(int(input("Enter a number: ")))
     return grade_list
 
 
@@ -23,12 +23,12 @@ def compute_stats(grade_list):
 
     Args:
         grade_list: List[float]. A list of numerical grade values.
-    
+
     Returns: a Tuple[float] of the mean and standard deviation.
     """
     # Calculate the mean and standard deviation of the grades
     mean = sum(grade_list) / len(grade_list)
-    sd = 0 # standard deviation
+    sd = 0  # standard deviation
     sum_of_sqrs = 0
     for grade in grade_list:
         sum_of_sqrs += (grade - mean) ** 2
@@ -38,7 +38,7 @@ def compute_stats(grade_list):
 
 def print_stat(n_students):
     """Display the mean and standard deviation for the class.
-    
+
     Args:
         n_students: int. The number of students in the class.
 

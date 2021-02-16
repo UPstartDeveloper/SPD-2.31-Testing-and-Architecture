@@ -11,8 +11,8 @@ def get_cooking_state(time, temperature, pressure):
 
 def is_cookeding_criteria_satisfied(time, temperature, pressure, desired_state):
     cooked_state = get_cooking_state(time, temperature, pressure)
-    if desired_state == 'well-done' and cooked_state >= WELL_DONE: 
+    if desired_state == "well-done" and cooked_state >= WELL_DONE:
         return True
-    if desired_state == 'medium' and cooked_state >= MEDIUM:
+    if desired_state == "medium" and cooked_state >= MEDIUM:
         return True
     return False
