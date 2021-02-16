@@ -18,7 +18,7 @@ class Shape:
         return self.x, self.y
 
 
-class Circle:
+class Circle(Shape):
     def __init__(self, center_x, center_y, r, visible=True):
         super().__init__(center_x, center_y, visible)
         self.r = r
@@ -27,16 +27,16 @@ class Circle:
         super().display("drew the circle.")
 
 
-class Rectangle:
+class Rectangle(Shape):
     def __init__(self, x, y, width, height, visible=True):
         # left-bottom corner.
         super().__init__(x, y, visible)
         self.width = width
         self.height = height
 
-    def display(self, message="drew the rectangle."):
+    def display(self):
         if self.visible:
-            super().display(message)
+            super().display("drew the rectangle.")
 
     def hide(self):
         super().set_visible(False)
