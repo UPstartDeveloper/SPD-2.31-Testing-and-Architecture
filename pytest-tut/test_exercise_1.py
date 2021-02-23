@@ -1,5 +1,7 @@
 # test_exercise_1.py
 
+import math
+
 def get_average(li):
     sum = 0
     for num in li:
@@ -19,4 +21,4 @@ def test_get_average():
     assert get_average([2, 2, 2, -22]) == -4
     # pos, neg, ints, and floating points
     assert get_average([4.78, -7, 2.22, -22]) == -5.5
-    assert get_average([10.1, 0.01, 0.1]) == 3.4
+    assert math.isclose(get_average([10.1, 0.01, 0.1]), 3.4033333333)
