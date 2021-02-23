@@ -3,7 +3,7 @@
 
 
 def save_into_db(info):
-    print("saved into databse")
+    print("Saved into database.")
 
 
 username = input("Please enter your username: ")
