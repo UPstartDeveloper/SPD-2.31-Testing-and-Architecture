@@ -3,6 +3,8 @@
 import math
 
 def get_average(li):
+    if len(li) == 0:
+        return float('NaN')
     sum = 0
     for num in li:
         sum += num
@@ -10,7 +12,7 @@ def get_average(li):
     return mean
 
 
-def test_get_average():
+def test_get_average_expected_inputs():
     # all pos
     assert get_average([2, 2, 2, 2]) == 2
     # pos integers and floats
@@ -22,3 +24,7 @@ def test_get_average():
     # pos, neg, ints, and floating points
     assert get_average([4.78, -7, 2.22, -22]) == -5.5
     assert math.isclose(get_average([10.1, 0.01, 0.1]), 3.4033333333)
+
+
+def test_get_average_empty_list():
+    assert math.isnan(get_average([]))
