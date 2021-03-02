@@ -137,14 +137,13 @@ def chooseRandomMoveFromList(board, movesList):
         if isSpaceFree(board, i):
             possibleMoves.append(i)
 
-    if len(possibleMoves) != 0: # TODO: How would you write this pythanically? (You can google for it!)
+    if possibleMoves:
         return random.choice(possibleMoves)
-    else: # TODO: is this 'else' necessary?
-        return None
+    return None
 
-def getComputerMove(board, computerLetter): # TODO: W0621: Redefining name 'computerLetter' from outer scope. Hint: Fix it according to https://stackoverflow.com/a/25000042/81306
+def getComputerMove(board, computerChar):
     # Given a board and the computer's letter, determine where to move and return that move.
-    if computerLetter == 'X':
+    if computerChar == 'X':
         playerLetter = 'O'
     else:
         playerLetter = 'X'
@@ -154,8 +153,8 @@ def getComputerMove(board, computerLetter): # TODO: W0621: Redefining name 'comp
     for i in range(1, 10):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
-            makeMove(copy, computerLetter, i)
-            if isWinner(copy, computerLetter):
+            makeMove(copy, computerChar, i)
+            if isWinner(copy, computerChar):
                 return i
 
     # Check if the player could win on their next move, and block them.
@@ -186,57 +185,58 @@ def isBoardFull(board):
     return True
 
 
-print('Welcome to Tic Tac Toe!')
+if __name__ == "__main__":
+    print('Welcome to Tic Tac Toe!')
 
-# TODO: The following mega code block is a huge hairy monster. Break it down 
-# into smaller methods. Use TODO s and the comment above each section as a guide 
-# for refactoring.
+    # TODO: The following mega code block is a huge hairy monster. Break it down 
+    # into smaller methods. Use TODO s and the comment above each section as a guide 
+    # for refactoring.
 
-while True:
-    # Reset the board
-    theBoard = [' '] * 10 # TODO: Refactor the magic number in this line (and all of the occurrences of 10 thare are conceptually the same.)
-    playerLetter, computerLetter = inputPlayerLetter()
-    turn = whoGoesFirst()
-    print('The ' + turn + ' will go first.')
-    gameIsPlaying = True # TODO: Study how this variable is used. Does it ring a bell? (which refactoring method?) 
-                         #       See whether you can get rid of this 'flag' variable. If so, remove it.
+    while True:
+        # Reset the board
+        theBoard = [' '] * 10 # TODO: Refactor the magic number in this line (and all of the occurrences of 10 thare are conceptually the same.)
+        playerLetter, computerLetter = inputPlayerLetter()
+        turn = whoGoesFirst()
+        print('The ' + turn + ' will go first.')
+        gameIsPlaying = True # TODO: Study how this variable is used. Does it ring a bell? (which refactoring method?) 
+                            #       See whether you can get rid of this 'flag' variable. If so, remove it.
 
-    while gameIsPlaying: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
-                         #       Use a meaningful name for the function you choose.
-        if turn == 'player':
-            # Player’s turn.
-            drawBoard(theBoard)
-            move = getPlayerMove(theBoard)
-            makeMove(theBoard, playerLetter, move)
-
-            if isWinner(theBoard, playerLetter):
+        while gameIsPlaying: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
+                            #       Use a meaningful name for the function you choose.
+            if turn == 'player':
+                # Player’s turn.
                 drawBoard(theBoard)
-                print('Hooray! You have won the game!')
-                gameIsPlaying = False
-            else:  # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
+                move = getPlayerMove(theBoard)
+                makeMove(theBoard, playerLetter, move)
+
+                if isWinner(theBoard, playerLetter):
                     drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else:  # TODO: Is this 'else' necessary?
-                    turn = 'computer'
+                    print('Hooray! You have won the game!')
+                    gameIsPlaying = False
+                else:  # TODO: is this 'else' necessary?
+                    if isBoardFull(theBoard):
+                        drawBoard(theBoard)
+                        print('The game is a tie!')
+                        break
+                    else:  # TODO: Is this 'else' necessary?
+                        turn = 'computer'
 
-        else:
-            # Computer’s turn.
-            move = getComputerMove(theBoard, computerLetter)
-            makeMove(theBoard, computerLetter, move)
+            else:
+                # Computer’s turn.
+                move = getComputerMove(theBoard, computerLetter)
+                makeMove(theBoard, computerLetter, move)
 
-            if isWinner(theBoard, computerLetter):
-                drawBoard(theBoard)
-                print('The computer has beaten you! You lose.')
-                gameIsPlaying = False
-            else:     # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
+                if isWinner(theBoard, computerLetter):
                     drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else: # TODO: Is this 'else' necessary?
-                    turn = 'player'
+                    print('The computer has beaten you! You lose.')
+                    gameIsPlaying = False
+                else:     # TODO: is this 'else' necessary?
+                    if isBoardFull(theBoard):
+                        drawBoard(theBoard)
+                        print('The game is a tie!')
+                        break
+                    else: # TODO: Is this 'else' necessary?
+                        turn = 'player'
 
-    if not playAgain():
-        break
+        if not playAgain():
+            break
