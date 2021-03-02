@@ -150,7 +150,7 @@ def getComputerMove(board, computerChar):
 
     # Here is our algorithm for our Tic Tac Toe AI:
     # First, check if we can win in the next move
-    for i in range(1, 10):
+    for i in range(1, NUM_BOXES + 1):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, computerChar, i)
@@ -158,7 +158,7 @@ def getComputerMove(board, computerChar):
                 return i
 
     # Check if the player could win on their next move, and block them.
-    for i in range(1, 10):
+    for i in range(1, NUM_BOXES + 1):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, playerLetter, i)
@@ -167,7 +167,7 @@ def getComputerMove(board, computerChar):
 
     # Try to take one of the corners, if they are free.
     move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
-    if move != None: # TODO: Fix it (Hint: Comparisons to singletons like None should always be done with is or is not, never the equality/inequality operators.)
+    if move is not None:
         return move
 
     # Try to take the center, if it is free.
@@ -179,7 +179,7 @@ def getComputerMove(board, computerChar):
 
 def isBoardFull(board):
     # Return True if every space on the board has been taken. Otherwise return False.
-    for i in range(1, 10):
+    for i in range(1, NUM_BOXES + 1):
         if isSpaceFree(board, i):
             return False
     return True
@@ -194,7 +194,7 @@ if __name__ == "__main__":
 
     while True:
         # Reset the board
-        theBoard = [' '] * 10 # TODO: Refactor the magic number in this line (and all of the occurrences of 10 thare are conceptually the same.)
+        theBoard = [' '] * (NUM_BOXES + 1)
         playerLetter, computerLetter = inputPlayerLetter()
         turn = whoGoesFirst()
         print('The ' + turn + ' will go first.')
