@@ -11,10 +11,6 @@ import random
 from typing import List
 
 
-BOARD_LENGTH = 3
-NUM_BOXES = BOARD_LENGTH * BOARD_LENGTH
-
-
 def drawBoard(board):
     # This function prints out the board that it was passed.
 
@@ -185,58 +181,95 @@ def isBoardFull(board):
     return True
 
 
-if __name__ == "__main__":
+def play_game():
+
+    def shouldContinue(theBoard: List[str], letter: str):
+        '''tells the computer whether or not to continue the program'''
+        if isWinner(theBoard, letter) or isBoardFull(theBoard):
+            return False
+        return True
+
+    def playerMakesMove():
+        # Player’s turn.
+        move = getPlayerMove(theBoard)
+        makeMove(theBoard, playerLetter, move)
+        # decide if the game continues, and draw the board if not
+        keepGoing = shouldContinue(theBoard, playerLetter)
+        if keepGoing is False:
+            drawBoard(theBoard)
+            pass
+        # decide what to tell user if game not continuing
+        if isWinner(theBoard, playerLetter):
+            print('Hooray! You have won the game!')
+        elif isBoardFull(theBoard):
+            print('The game is a tie!')
+        return keepGoing
+
+    def computerMakesMove():
+        move = getComputerMove(theBoard, computerLetter)
+        makeMove(theBoard, computerLetter, move)
+        # decide if the game continues, and draw the board if not
+        keepGoing = shouldContinue(theBoard, computerLetter)
+        if keepGoing is False:
+            drawBoard(theBoard)
+        # decide what to tell user if game not continuing
+        if isWinner(theBoard, computerLetter):
+            drawBoard(theBoard)
+            print('The computer has beaten you! You lose.')
+        elif isBoardFull(theBoard):
+            drawBoard(theBoard)
+            print('The game is a tie!')
+        return keepGoing
+
+    def play_one_round(turn):
+        while not turn == 'stop':
+            if turn == 'player':
+                drawBoard(theBoard)
+                # player makes move
+                continueGame = playerMakesMove()
+                # then decide if the game continues
+                turn = 'computer' if continueGame is True else 'stop'
+            elif turn == 'computer':
+                # computer makes move
+                continueGame = computerMakesMove()
+                # decide to keep going
+                turn = 'player' if continueGame is True else 'stop'
+            else:  # turn == 'stop'
+                break
+
+    # welcome the player
     print('Welcome to Tic Tac Toe!')
-
-    # TODO: The following mega code block is a huge hairy monster. Break it down 
-    # into smaller methods. Use TODO s and the comment above each section as a guide 
-    # for refactoring.
-
+    # play the game loop
     while True:
         # Reset the board
-        theBoard = [' '] * (NUM_BOXES + 1)
+        theBoard = [' ' for _ in range(NUM_BOXES + 1)]
         playerLetter, computerLetter = inputPlayerLetter()
         turn = whoGoesFirst()
         print('The ' + turn + ' will go first.')
-        gameIsPlaying = True # TODO: Study how this variable is used. Does it ring a bell? (which refactoring method?) 
-                            #       See whether you can get rid of this 'flag' variable. If so, remove it.
-
-        while gameIsPlaying: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
-                            #       Use a meaningful name for the function you choose.
+        # play the game for 1 round 
+        # play_one_round(turn)
+        while True:
             if turn == 'player':
-                # Player’s turn.
                 drawBoard(theBoard)
-                move = getPlayerMove(theBoard)
-                makeMove(theBoard, playerLetter, move)
-
-                if isWinner(theBoard, playerLetter):
-                    drawBoard(theBoard)
-                    print('Hooray! You have won the game!')
-                    gameIsPlaying = False
-                else:  # TODO: is this 'else' necessary?
-                    if isBoardFull(theBoard):
-                        drawBoard(theBoard)
-                        print('The game is a tie!')
-                        break
-                    else:  # TODO: Is this 'else' necessary?
-                        turn = 'computer'
-
-            else:
-                # Computer’s turn.
-                move = getComputerMove(theBoard, computerLetter)
-                makeMove(theBoard, computerLetter, move)
-
-                if isWinner(theBoard, computerLetter):
-                    drawBoard(theBoard)
-                    print('The computer has beaten you! You lose.')
-                    gameIsPlaying = False
-                else:     # TODO: is this 'else' necessary?
-                    if isBoardFull(theBoard):
-                        drawBoard(theBoard)
-                        print('The game is a tie!')
-                        break
-                    else: # TODO: Is this 'else' necessary?
-                        turn = 'player'
-
+                # player makes move
+                continueGame = playerMakesMove()
+                # then decide if the game continues
+                turn = 'computer' if continueGame is True else 'stop'
+            elif turn == 'computer':
+                # computer makes move
+                continueGame = computerMakesMove()
+                # decide to keep going
+                turn = 'player' if continueGame is True else 'stop'
+            else:  # turn == 'stop'
+                break
+        # prompt the player to keep going
         if not playAgain():
             break
+
+
+if __name__ == "__main__":
+    # define params for the game
+    BOARD_LENGTH = 3
+    NUM_BOXES = BOARD_LENGTH * BOARD_LENGTH
+
+    play_game()
