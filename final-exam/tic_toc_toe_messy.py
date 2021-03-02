@@ -111,12 +111,7 @@ def isWinner(bo: List[str], le: str) -> bool:
 
 def getBoardCopy(board):
     # Make a duplicate of the board list and return it the duplicate.
-    dupeBoard = []
-
-    for i in range(0, len(board)): # TODO: Clean this mess!
-        dupeBoard.append(board[i])
-
-    return dupeBoard
+    return [board_val for board_val in board]
 
 def isSpaceFree(board, move):
     # Return true if the passed move is free on the passed board.
@@ -124,11 +119,15 @@ def isSpaceFree(board, move):
 
 def getPlayerMove(board):
     # Let the player type in their move.
-    move = ' ' # TODO: W0621: Redefining name 'move' from outer scope. Hint: Fix it according to https://stackoverflow.com/a/25000042/81306
-    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+    player_move = None
+    moves = set(str(move_num) for move_num in range(1, len(board) + 1))
+    # find out which space the player wants to move
+    while player_move not in moves or \
+          not isSpaceFree(board, int(player_move)):
+        # prompt the player to choose their move
         print('What is your next move? (1-9)')
-        move = input()
-    return int(move)
+        player_move = input()
+    return int(player_move)
 
 def chooseRandomMoveFromList(board, movesList):
     # Returns a valid move from the passed list on the passed board.
