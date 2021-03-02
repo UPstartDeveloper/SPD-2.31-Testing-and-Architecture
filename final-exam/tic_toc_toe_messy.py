@@ -8,6 +8,12 @@
 #    comments)
 
 import random
+from typing import List
+
+
+BOARD_LENGTH = 3
+NUM_BOXES = BOARD_LENGTH * BOARD_LENGTH
+
 
 def drawBoard(board):
     # This function prints out the board that it was passed.
@@ -54,17 +60,54 @@ def playAgain():
 def makeMove(board, letter, move):
     board[move] = letter
 
-def isWinner(bo, le):
+def isWinner(bo: List[str], le: str) -> bool:
     # Given a board and a player’s letter, this function returns True if that player has won.
     # We use bo instead of board and le instead of letter so we don’t have to type as much.
-    return ((bo[7] == le and bo[8] == le and bo[9] == le) or # across the top
-    (bo[4] == le and bo[5] == le and bo[6] == le) or # across the middle    # TODO: Fix the indentation of this lines and the following ones.
-    (bo[1] == le and bo[2] == le and bo[3] == le) or # across the bottom
-    (bo[7] == le and bo[4] == le and bo[1] == le) or # down the left side
-    (bo[8] == le and bo[5] == le and bo[2] == le) or # down the middle
-    (bo[9] == le and bo[6] == le and bo[3] == le) or # down the right side
-    (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
-    (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
+    def is_winner_by_row(winning_sequence):
+        '''Check each row of the board, to see if the player has won.'''
+        for board_index in range(1, NUM_BOXES, BOARD_LENGTH):
+            board_row = bo[board_index:board_index + BOARD_LENGTH]
+            if board_row == winning_sequence:
+                return True
+        # if no rows win, then return False
+        return False
+
+    def is_winner_by_column(winning_sequence):
+        '''Check each column of the board, to see if the player has won.'''
+        # get the start of each column
+        for col_start in range(1, BOARD_LENGTH + 1):
+            # form an array of the column
+            board_col = list()
+            for board_pos in range(col_start, NUM_BOXES, BOARD_LENGTH):
+                board_col.append(bo[board_pos])
+            # compare to the desired values
+            if board_col == winning_sequence:
+                return True
+        # if no cols win, then return False
+        return False
+        
+    def is_winner_by_diagonal(winning_sequence):
+        '''Check both diagonals of the board, to see if the player has won.'''
+        # form the diagonals
+        up_to_down = [
+            bo[index] for index in range(1, NUM_BOXES, BOARD_LENGTH + 1)
+        ]
+        down_to_up = [
+            bo[index] for index in 
+            range(BOARD_LENGTH, NUM_BOXES, BOARD_LENGTH - 1)
+        ]
+        # check the diagonals against the desired sequence
+        if winning_sequence == up_to_down or winning_sequence == down_to_up:
+            return True
+        return False
+
+    # init a list of the letters the board must have, for the player to win
+    winning_sequence = [le for _ in range(BOARD_LENGTH)]
+    return (
+        is_winner_by_row(winning_sequence) or
+        is_winner_by_column(winning_sequence) or
+        is_winner_by_diagonal(winning_sequence)
+    ) 
 
 def getBoardCopy(board):
     # Make a duplicate of the board list and return it the duplicate.

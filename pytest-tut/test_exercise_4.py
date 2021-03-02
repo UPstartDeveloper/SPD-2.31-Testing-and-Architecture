@@ -1,7 +1,7 @@
 # test_exercise_4.py
 
 import pytest
-import .exercise_4_function as e4
+from . import exercise_4_function as e4
 
 
 @pytest.fixture
