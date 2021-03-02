@@ -1,10 +1,8 @@
 # Tic Tac Toe
 # Reference: With modification from http://inventwithpython.com/chapter10.html. 
 
-# TODOs:  
-# 1. Find all TODO items and see whether you can improve the code. 
-#    In most cases (if not all), you can make them more readable/modular.
-# 2. Add/fix function's docstrings (use """ insted of # for function's header
+# TODO  
+# 1. Add/fix function's docstrings (use """ insted of # for function's header
 #    comments)
 
 import random
@@ -27,6 +25,7 @@ def drawBoard(board):
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |')
 
+
 def inputPlayerLetter():
     # Lets the player type which letter they want to be.
     # Returns a list with the player’s letter as the first item, and the computer's letter as the second.
@@ -41,6 +40,7 @@ def inputPlayerLetter():
     else:                       
         return ['O', 'X']
 
+
 def whoGoesFirst():
     # Randomly choose the player who goes first.
     if random.randint(0, 1) == 0:
@@ -48,13 +48,16 @@ def whoGoesFirst():
     else:                       
         return 'player'
 
+
 def playAgain():
     # This function returns True if the player wants to play again, otherwise it returns False.
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
+
 def makeMove(board, letter, move):
     board[move] = letter
+
 
 def isWinner(bo: List[str], le: str) -> bool:
     # Given a board and a player’s letter, this function returns True if that player has won.
@@ -105,13 +108,16 @@ def isWinner(bo: List[str], le: str) -> bool:
         is_winner_by_diagonal(winning_sequence)
     ) 
 
+
 def getBoardCopy(board):
     # Make a duplicate of the board list and return it the duplicate.
     return [board_val for board_val in board]
 
+
 def isSpaceFree(board, move):
     # Return true if the passed move is free on the passed board.
     return board[move] == ' '
+
 
 def getPlayerMove(board):
     # Let the player type in their move.
@@ -125,6 +131,7 @@ def getPlayerMove(board):
         player_move = input()
     return int(player_move)
 
+
 def chooseRandomMoveFromList(board, movesList):
     # Returns a valid move from the passed list on the passed board.
     # Returns None if there is no valid move.
@@ -136,6 +143,7 @@ def chooseRandomMoveFromList(board, movesList):
     if possibleMoves:
         return random.choice(possibleMoves)
     return None
+
 
 def getComputerMove(board, computerChar):
     # Given a board and the computer's letter, determine where to move and return that move.
@@ -173,6 +181,7 @@ def getComputerMove(board, computerChar):
     # Move on one of the sides.
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
+
 def isBoardFull(board):
     # Return True if every space on the board has been taken. Otherwise return False.
     for i in range(1, NUM_BOXES + 1):
@@ -197,7 +206,6 @@ def play_game():
         keepGoing = shouldContinue(theBoard, playerLetter)
         if keepGoing is False:
             drawBoard(theBoard)
-            pass
         # decide what to tell user if game not continuing
         if isWinner(theBoard, playerLetter):
             print('Hooray! You have won the game!')
@@ -214,10 +222,8 @@ def play_game():
             drawBoard(theBoard)
         # decide what to tell user if game not continuing
         if isWinner(theBoard, computerLetter):
-            drawBoard(theBoard)
             print('The computer has beaten you! You lose.')
         elif isBoardFull(theBoard):
-            drawBoard(theBoard)
             print('The game is a tie!')
         return keepGoing
 
@@ -234,8 +240,6 @@ def play_game():
                 continueGame = computerMakesMove()
                 # decide to keep going
                 turn = 'player' if continueGame is True else 'stop'
-            else:  # turn == 'stop'
-                break
 
     # welcome the player
     print('Welcome to Tic Tac Toe!')
@@ -247,21 +251,7 @@ def play_game():
         turn = whoGoesFirst()
         print('The ' + turn + ' will go first.')
         # play the game for 1 round 
-        # play_one_round(turn)
-        while True:
-            if turn == 'player':
-                drawBoard(theBoard)
-                # player makes move
-                continueGame = playerMakesMove()
-                # then decide if the game continues
-                turn = 'computer' if continueGame is True else 'stop'
-            elif turn == 'computer':
-                # computer makes move
-                continueGame = computerMakesMove()
-                # decide to keep going
-                turn = 'player' if continueGame is True else 'stop'
-            else:  # turn == 'stop'
-                break
+        play_one_round(turn)
         # prompt the player to keep going
         if not playAgain():
             break
