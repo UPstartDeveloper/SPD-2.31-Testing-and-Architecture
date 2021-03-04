@@ -9,8 +9,8 @@ class GumballMachine:
         # init the current state of the system
         self.current_state = State()
         # init other properties
-        self.num_gumballs = None
-        self.quarters = None
+        self.num_gumballs = 0
+        self.num_quarters = 0
         # now switch to the state that the client requested
         self.request(initial_state)
 

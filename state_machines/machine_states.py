@@ -19,15 +19,17 @@ class State:
         else:
             self.valid_changes = valid_changes
 
-    def handle(self, request, context):
-        '''Changes the current state of the context to any of its children.'''
+    def handle(self, request, gumball_machine):
+        """Changes the current state of the 
+        gumball_machine to any of its children.
+        """
         # get a record of states we can go to 
         concrete_states = self.get_classes()
         # validate the request
         if request in self.valid_changes and request in concrete_states:
             # change the state
             new_state = concrete_states[request]()
-            context.current_state = new_state
+            gumball_machine.current_state = new_state
 
     def get_classes(self):
         """
@@ -39,8 +41,8 @@ class State:
 
         Returns: dict
 
-        Example usage:
-        If I call print_classes() as is, I would get the following:
+        Example usage: 
+        If we print the output of State().get_classes(), we would get the following:
         {
             'GumballlSold': <class 'machine_states.GumballlSold'>
             'HasQuarter': <class 'machine_states.HasQuarter'>
@@ -70,11 +72,30 @@ class HasQuarter(State):
         valid_changes = ['GumballSold', 'NoQuarter']
         super().__init__(name, valid_changes)
 
+    def handle(self, request, gumball_machine):
+        '''Changes the system based on the request.'''
+        # change the system properties based on the request
+        if request == 'GumballSold':
+            gumball_machine.num_gumballs -= 1
+            gumball_machine.num_quarters += 1
+        if request == 'NoQuarter':
+            gumball_machine.num_quarters -= 1  # ejects quarter
+        # change the system's .current_state property
+        return super().handle(request, gumball_machine)
+        
 
 class NoQuarter(State):
     def __init__(self, name='no_quarter') -> None:
-        valid_changes = ['GumballSold', 'HasQuarter']
+        valid_changes = ['HasQuarter']
         super().__init__(name, valid_changes)
+    
+    def handle(self, request, gumball_machine):
+        '''Changes the system based on the request.'''
+        # change the system properties based on the request
+        if request == 'HasQuarter':
+            gumball_machine.num_quarters += 1
+        # change the system's .current_state property
+        return super().handle(request, gumball_machine)
 
 
 class GumballlSold(State):
@@ -82,11 +103,25 @@ class GumballlSold(State):
         valid_changes = ['OutOfGumballs', 'NoQuarter']
         super().__init__(name, valid_changes)
 
+    def handle(self, request, gumball_machine):
+        '''Changes the system based on the request.'''
+        # change the system properties based on the request
+        if request == 'OutOfGumballs':
+            gumball_machine.num_gumballs = 0
+        if request == 'NoQuarter':
+            gumball_machine.num_gumballs -= 1
+        # change the system's .current_state property
+        return super().handle(request, gumball_machine)
+
 
 class OutOfGumballs(State):
     def __init__(self, name='out_of_gumballs') -> None:
         valid_changes = list()
         super().__init__(name, valid_changes)
+
+    def handle(self, request, gumball_machine):
+        '''The gumball machine can no longer take any requests.'''
+        print("Sorry, this machine is currently out of order.")
 
 
 if __name__ == "__main__":
