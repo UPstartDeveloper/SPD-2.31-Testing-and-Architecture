@@ -3,6 +3,7 @@
 
 import sys
 import inspect
+from typing import List
 
 
 class State:
@@ -10,15 +11,20 @@ class State:
     An abstraction for what all the states 
     of the gumball machine share in common.
     """
-    def __init__(self, name='state') -> None:
+    def __init__(self, name='state', valid_changes=None) -> None:
         self.name = name
+        # store a list of the other states we can go to from this one
+        if valid_changes is None:
+            self.valid_changes = list(self.get_classes().keys())
+        else:
+            self.valid_changes = valid_changes
 
     def handle(self, request, context):
         '''Changes the current state of the context to any of its children.'''
         # get a record of states we can go to 
         concrete_states = self.get_classes()
-        # validate that request
-        if request in concrete_states:
+        # validate the request
+        if request in self.valid_changes and request in concrete_states:
             # change the state
             new_state = concrete_states[request]()
             context.current_state = new_state
@@ -61,22 +67,26 @@ class State:
 
 class HasQuarter(State):
     def __init__(self, name='has_quarter') -> None:
-        super().__init__(name)
+        valid_changes = ['GumballSold', 'NoQuarter']
+        super().__init__(name, valid_changes)
 
 
 class NoQuarter(State):
     def __init__(self, name='no_quarter') -> None:
-        super().__init__(name)
+        valid_changes = ['GumballSold', 'HasQuarter']
+        super().__init__(name, valid_changes)
 
 
 class GumballlSold(State):
     def __init__(self, name='gumball_sold') -> None:
-        super().__init__(name)
+        valid_changes = ['OutOfGumballs', 'NoQuarter']
+        super().__init__(name, valid_changes)
 
 
 class OutOfGumballs(State):
     def __init__(self, name='out_of_gumballs') -> None:
-        super().__init__(name)
+        valid_changes = list()
+        super().__init__(name, valid_changes)
 
 
 if __name__ == "__main__":
